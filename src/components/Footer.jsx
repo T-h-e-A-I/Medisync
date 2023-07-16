@@ -1,7 +1,25 @@
-import React from "react";
 import { Flex, Input, Button } from "@chakra-ui/react";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
+import "regenerator-runtime";
+import { useEffect, useState } from "react";
 
 const Footer = ({ inputMessage, setInputMessage, handleSendMessage }) => {
+  useEffect(() => startListening, []);
+  const startListening = () =>
+    SpeechRecognition.startListening({ continuous: false, language: "bn-BD" });
+  const { transcript, browserSupportsSpeechRecognition } =
+    useSpeechRecognition();
+  const stopListening = () => {
+    console.log(transcript);
+    SpeechRecognition.stopListening();
+    startListening();
+  };
+  if (!browserSupportsSpeechRecognition) {
+    return null;
+  }
+
   return (
     <Flex w="100%" mt="5">
       <Input
@@ -11,12 +29,7 @@ const Footer = ({ inputMessage, setInputMessage, handleSendMessage }) => {
         _focus={{
           border: "1px solid black",
         }}
-        onKeyPress={(e) => {
-          if (e.key === "Enter") {
-            handleSendMessage();
-          }
-        }}
-        value={inputMessage}
+        value={transcript}
         onChange={(e) => setInputMessage(e.target.value)}
       />
       <Button
@@ -29,7 +42,12 @@ const Footer = ({ inputMessage, setInputMessage, handleSendMessage }) => {
           border: "1px solid black",
         }}
         disabled={inputMessage.trim().length <= 0}
-        onClick={handleSendMessage}
+        onClick={() => {
+          SpeechRecognition.stopListening();
+          startListening();
+          setInputMessage(transcript);
+          handleSendMessage(transcript);
+        }}
       >
         Send
       </Button>

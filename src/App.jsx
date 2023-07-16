@@ -1,6 +1,7 @@
 import { ChakraProvider, theme } from "@chakra-ui/react";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import Html5QrcodePlugin from "./pages/QrScanner";
+import "regenerator-runtime";
 import Chat from "./pages/Chat";
 import "./App.css";
 

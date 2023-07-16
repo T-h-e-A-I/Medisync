@@ -4,12 +4,13 @@ import Divider from "../components/Divider";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Messages from "../components/Messages";
+import "regenerator-runtime";
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
 
-  const handleSendMessage = () => {
+  const handleSendMessage = (inputMessage) => {
     if (!inputMessage.trim().length) {
       return;
     }
