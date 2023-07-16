@@ -1,6 +1,8 @@
 import { ChakraProvider, theme } from "@chakra-ui/react";
+import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import Html5QrcodePlugin from "./pages/QrScanner";
 import Chat from "./pages/Chat";
+import "./App.css";
 
 const App = () => {
   const onNewScanResult = (decodedText, decodedResult) => {
@@ -8,20 +10,29 @@ const App = () => {
   };
   return (
     <ChakraProvider theme={theme}>
-      <div className="App">
-        <section className="App-section">
-          <br />
-          <br />
-          <br />
-          <Html5QrcodePlugin
-            fps={10}
-            qrbox={250}
-            disableFlip={false}
-            qrCodeSuccessCallback={onNewScanResult}
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className="App">
+                <section className="App-section">
+                  <br />
+                  <br />
+                  <br />
+                  <Html5QrcodePlugin
+                    fps={10}
+                    qrbox={250}
+                    disableFlip={false}
+                    qrCodeSuccessCallback={onNewScanResult}
+                  />
+                </section>
+              </div>
+            }
           />
-        </section>
-      </div>
-      <Chat />
+          <Route path="/chat" element={<Chat />} />
+        </Routes>
+      </Router>
     </ChakraProvider>
   );
 };
