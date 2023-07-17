@@ -43,7 +43,7 @@ const Messages = ({ messages }) => {
                 p="3"
               >
                 <Text>{item.text}</Text>
-                <TextToSpeech />
+                <TextToSpeech text={item.text} />
               </Flex>
             </Flex>
           );

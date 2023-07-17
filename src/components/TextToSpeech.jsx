@@ -1,29 +1,14 @@
 import React, { useEffect, useState } from "react";
 
-const TextToSpeech = () => {
-  //console.log(text);
-  //const text = "আমি বাংলায় কথা বলতে পারি।";
-  const [utterance, setUtterance] = useState(null);
-  const text = "আমি ";
-  useEffect(() => {
-    const synth = window.speechSynthesis;
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = "bn-BD";
-    setUtterance(u);
-
-    return () => {
-      synth.cancel();
-    };
-  }, [text]);
-
+const TextToSpeech = ({ text }) => {
   const handleSpeak = () => {
     if ("speechSynthesis" in window) {
       const synthesis = window.speechSynthesis;
 
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = "bn"; // Set language to Bangla
+      utterance.lang = "bn";
       utterance.voice = getBanglaVoice(synthesis.getVoices());
-
+      utterance.rate = 0.8;
       synthesis.speak(utterance);
     } else {
       console.error("Speech synthesis is not supported in this browser.");

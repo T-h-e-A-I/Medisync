@@ -5,9 +5,11 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Messages from "../components/Messages";
 import "regenerator-runtime";
-
+let array = "Human: ";
 const Chat = () => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    { from: "computer", text: "কেমন আছেন?" },
+  ]);
   const [inputMessage, setInputMessage] = useState("");
 
   const handleSendMessage = (inputMessage) => {
@@ -15,12 +17,32 @@ const Chat = () => {
       return;
     }
     const data = inputMessage;
-
+    array += " " + data;
+    console.log(array);
     setMessages((old) => [...old, { from: "me", text: data }]);
     setInputMessage("");
+    let outputData = "";
 
+    if (messages.length === 1) {
+      outputData = "আপনার নাম বলুন?";
+    }
+    if (messages.length === 3) {
+      outputData = "আপনার বয়স কত ?";
+    }
+    if (messages.length === 5) {
+      outputData = "আপনার লক্ষণ গুলো বলুন";
+    }
+    if (messages.length === 7) {
+      outputData = "আরেকটু বিস্তারিত বলুন";
+      array += data;
+    }
+    if (messages.length === 9) {
+      outputData = `আপনার লক্ষণ গুলো পরীক্ষা করা হয়েছে আপনার রোগ ${find_disease(
+        array
+      )} হতে পারে আপনি ${find_med(array)} ওষুধটি সেবন করুন `;
+    }
     setTimeout(() => {
-      setMessages((old) => [...old, { from: "computer", text: data }]);
+      setMessages((old) => [...old, { from: "computer", text: outputData }]);
     }, 1000);
   };
 
@@ -43,10 +65,13 @@ const Chat = () => {
 
 export default Chat;
 
-//     { from: "computer", text: "Hi, My Name is HoneyChat" },
-//     { from: "me", text: "Hey there" },
-//     { from: "me", text: "Myself Ferin Patel" },
-//     {
-//       from: "computer",
-//       text: "Nice to meet you. You can send me message and i'll reply you with same message.",
-//     },
+const find_disease = (array) => {
+  if (array.includes("শ্বাসকষ্ট")) {
+  } else if (array.includes("কাঁপুনি দিয়ে জ্বর")) {
+    return "ডেঙ্গু জ্বর";
+  }
+  return "ভাইরাল জ্বর";
+};
+const find_med = (array) => {
+  return "প্যারাসিটামল";
+};
