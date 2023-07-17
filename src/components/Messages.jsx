@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Avatar, Flex, Text } from "@chakra-ui/react";
+import TextToSpeech from "./TextToSpeech";
 
 const Messages = ({ messages }) => {
   const AlwaysScrollToBottom = () => {
@@ -7,7 +8,6 @@ const Messages = ({ messages }) => {
     useEffect(() => elementRef.current.scrollIntoView());
     return <div ref={elementRef} />;
   };
-
   return (
     <Flex w="100%" h="80%" overflowY="scroll" flexDirection="column" p="3">
       {messages.map((item, index) => {
@@ -43,6 +43,7 @@ const Messages = ({ messages }) => {
                 p="3"
               >
                 <Text>{item.text}</Text>
+                <TextToSpeech />
               </Flex>
             </Flex>
           );
