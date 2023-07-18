@@ -69,12 +69,32 @@ const Chat = () => {
 export default Chat;
 
 const find_disease = (array) => {
-  if (array.includes("শ্বাসকষ্ট")) {
+  if (array.includes("পেট ফেপে") || array.includes("পেট ফেঁপে")) {
+    return "কলেরা";
   } else if (array.includes("কাঁপুনি দিয়ে জ্বর")) {
     return "ডেঙ্গু জ্বর";
+  } else if (array.includes("ঘরঘর আওয়াজ") || array.includes("শ্বাসকষ্ট")) {
+    return "নিউমোনিয়া";
+  } else if (
+    array.includes("কেপে কেপে জ্বর") ||
+    array.includes("কেঁপে কেঁপে জ্বর")
+  ) {
+    return "ম্যালেরিয়া";
   }
   return "ভাইরাল জ্বর";
 };
 const find_med = (array) => {
+  if (array.includes("পেট ফেপে") || array.includes("পেট ফেঁপে")) {
+    return "Ciprofloxacin এবং Oral Rehydration Solution (ORS)";
+  } else if (array.includes("কাঁপুনি দিয়ে জ্বর")) {
+    return "Acetaminophen";
+  } else if (array.includes("ঘরঘর আওয়াজ") || array.includes("শ্বাসকষ্ট")) {
+    return "Azithromycin";
+  } else if (
+    array.includes("কেপে কেপে জ্বর") ||
+    array.includes("কেঁপে কেঁপে জ্বর")
+  ) {
+    return "Quinine এবং Doxycycline";
+  }
   return "প্যারাসিটামল";
 };
