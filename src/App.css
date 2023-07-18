@@ -14,7 +14,7 @@
 }
 
 .App-section {
-  background-color: #282c34;
+  background-color: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -134,7 +134,7 @@ button:hover {
   background-color: #45a049 !important;
   transition: 0.7s;
 }
-.button:active {
+button:active {
   background-color: #3e8e41 !important;
 }
 #html5qr-code-full-region__scan_region > img {
@@ -145,4 +145,20 @@ button:hover {
 #html5qr-code-full-region__dashboard_section_csr > span:nth-child(2) {
   position: relative;
   display: inline-block;
+}
+#html5-qrcode-anchor-scan-type-change {
+  text-decoration: none !important;
+  background-color: #4caf50 !important;
+  padding: 5px 5px !important;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+#html5-qrcode-anchor-scan-type-change :hover {
+  background-color: #45a049 !important;
+  transition: 0.7s;
+}
+#html5-qrcode-anchor-scan-type-change :active {
+  background-color: #3e8e41 !important;
 }

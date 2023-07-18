@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { IconButton } from "@chakra-ui/react";
+import { FaVolumeUp } from "react-icons/fa";
 
 const TextToSpeech = ({ text }) => {
   const handleSpeak = () => {
@@ -26,7 +28,14 @@ const TextToSpeech = ({ text }) => {
 
   return (
     <div>
-      <button onClick={handleSpeak}>Speak</button>
+      <IconButton
+        icon={<FaVolumeUp />}
+        onClick={handleSpeak}
+        mt="3px"
+        bgColor={"whiteAlpha.100"}
+      >
+        Speak
+      </IconButton>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { Html5QrcodeScanner } from "html5-qrcode";
-import { useEffect } from "react";
-
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 const qrcodeRegionId = "html5qr-code-full-region";
 
 // Creates the configuration object for Html5QrcodeScanner.
@@ -15,30 +15,31 @@ const createConfig = (props) => {
   if (props.aspectRatio) {
     config.aspectRatio = props.aspectRatio;
   }
-  if (props.disableFlip !== undefined) {
-    config.disableFlip = props.disableFlip;
-  }
   return config;
 };
 
 const Html5QrcodePlugin = (props) => {
+  const [isSucsess, setIsSucsess] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     // when component mounts
     const config = createConfig(props);
     const verbose = props.verbose === true;
     // Suceess callback is required.
-    if (!props.qrCodeSuccessCallback) {
-      throw "qrCodeSuccessCallback is required callback.";
-    }
+    // if (!props.qrCodeSuccessCallback) {
+    //   throw "qrCodeSuccessCallback is required callback.";
+    // }
     const html5QrcodeScanner = new Html5QrcodeScanner(
       qrcodeRegionId,
       config,
       verbose
     );
-    html5QrcodeScanner.render(
-      props.qrCodeSuccessCallback,
-      props.qrCodeErrorCallback
-    );
+    const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+      console.log(decodedText);
+      html5QrcodeScanner.clear();
+      setIsSucsess(true);
+    };
+    html5QrcodeScanner.render(qrCodeSuccessCallback, props.qrCodeErrorCallback);
 
     // cleanup function when component will unmount
     return () => {
@@ -48,7 +49,19 @@ const Html5QrcodePlugin = (props) => {
     };
   }, []);
 
-  return <div id={qrcodeRegionId} />;
+  return (
+    <>
+      <div id={qrcodeRegionId} />
+      {isSucsess ? (
+        <>
+          <div>Logged In Successfully</div>
+          <button onClick={() => navigate("/chat")}>Start Chatting</button>
+        </>
+      ) : (
+        <></>
+      )}
+    </>
+  );
 };
 
 export default Html5QrcodePlugin;

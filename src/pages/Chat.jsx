@@ -8,7 +8,10 @@ import "regenerator-runtime";
 let array = "Human: ";
 const Chat = () => {
   const [messages, setMessages] = useState([
-    { from: "computer", text: "কেমন আছেন?" },
+    {
+      from: "computer",
+      text: "আমি স্বাস্থ্যবট আপনার চিকিৎসা বিষয়ক Artificial Intelligence সহযোগী। আপনার কী স্বাস্থ্যসেবা প্রয়োজন ?",
+    },
   ]);
   const [inputMessage, setInputMessage] = useState("");
 

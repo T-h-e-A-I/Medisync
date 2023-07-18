@@ -31,7 +31,7 @@ const Messages = ({ messages }) => {
             <Flex key={index} w="100%">
               <Avatar
                 name="Computer"
-                src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
+                src="https://media.istockphoto.com/id/1250000899/vector/chat-bot-robot-avatar-in-circle-round-shape-isolated-on-white-background-stock-vector.jpg?s=612x612&w=0&k=20&c=xj8GkmfFYH_Frho_pJ0HL2dkDwbZAI0Of6KwKdVsh1s="
                 bg="blue.300"
               ></Avatar>
               <Flex
@@ -39,12 +39,12 @@ const Messages = ({ messages }) => {
                 color="black"
                 minW="100px"
                 maxW="350px"
-                my="1"
+                mx="2"
                 p="3"
               >
                 <Text>{item.text}</Text>
-                <TextToSpeech text={item.text} />
               </Flex>
+              <TextToSpeech text={item.text} />
             </Flex>
           );
         }

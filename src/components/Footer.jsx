@@ -1,16 +1,16 @@
-import { Flex, Input, Button } from "@chakra-ui/react";
+import { Flex, Input, Button, IconButton } from "@chakra-ui/react";
+import { FaMicrophone, FaTrash } from "react-icons/fa";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import "regenerator-runtime";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const Footer = ({ inputMessage, setInputMessage, handleSendMessage }) => {
   useEffect(() => startListening, []);
   const startListening = () =>
     SpeechRecognition.startListening({ continuous: false, language: "bn-BD" });
-  const { transcript, browserSupportsSpeechRecognition } =
-    useSpeechRecognition();
+  let { transcript, browserSupportsSpeechRecognition } = useSpeechRecognition();
   const stopListening = () => {
     console.log(transcript);
     SpeechRecognition.stopListening();
@@ -19,11 +19,13 @@ const Footer = ({ inputMessage, setInputMessage, handleSendMessage }) => {
   if (!browserSupportsSpeechRecognition) {
     return null;
   }
-
+  const handleClear = () => {
+    transcript = "";
+  };
   return (
     <Flex w="100%" mt="5">
       <Input
-        placeholder="Type Something..."
+        placeholder="Say Something..."
         border="none"
         borderRadius="none"
         _focus={{
@@ -32,25 +34,22 @@ const Footer = ({ inputMessage, setInputMessage, handleSendMessage }) => {
         value={transcript}
         onChange={(e) => setInputMessage(e.target.value)}
       />
-      <Button
-        bg="black"
-        color="white"
-        borderRadius="none"
-        _hover={{
-          bg: "white",
-          color: "black",
-          border: "1px solid black",
-        }}
-        disabled={inputMessage.trim().length <= 0}
+      <IconButton
+        icon={<FaMicrophone />}
         onClick={() => {
           SpeechRecognition.stopListening();
           startListening();
           setInputMessage(transcript);
           handleSendMessage(transcript);
         }}
-      >
-        Send
-      </Button>
+        aria-label="Microphone Button"
+      />
+      <IconButton
+        icon={<FaTrash />}
+        aria-label="Clear"
+        onClick={handleClear}
+        ml="5px"
+      />
     </Flex>
   );
 };
